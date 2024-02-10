@@ -10,7 +10,6 @@ import dagger.Provides
 
 @Module
 class DatabaseModule {
-
     @Provides
     @AppScope
     fun provideDatabase(context: Context): MovieDatabase {
@@ -20,7 +19,6 @@ class DatabaseModule {
             "movie_db.db"
         ).build()
     }
-
     @Provides
     @AppScope
     fun provideDatabaseDao(database: MovieDatabase): MovieDao {

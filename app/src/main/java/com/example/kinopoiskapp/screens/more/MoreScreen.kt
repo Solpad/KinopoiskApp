@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,6 +37,7 @@ internal fun MoreScreen(
 
     MoreScreenContent(
         needShowErrorScreen = needShowErrorScreen,
+        onAddToFavoriteButtonClick = viewModel::onAddToFavoriteButtonClick,
         moreMovieInfo = moreFilmInfo,
     )
 }
@@ -43,6 +45,7 @@ internal fun MoreScreen(
 @Composable
 private fun MoreScreenContent(
     needShowErrorScreen: Boolean,
+    onAddToFavoriteButtonClick: () -> Unit,
     moreMovieInfo: MoreMovieUiModel,
 ) {
     Scaffold(
@@ -104,6 +107,11 @@ private fun MoreScreenContent(
                                 text = "${stringResource(id = R.string.countres)} $text",
                                 modifier = Modifier.padding(16.dp)
                             )
+                        }
+                    }
+                    item {
+                        Button(onClick = onAddToFavoriteButtonClick ){
+                            Text(text = "Добавить в избранное")
                         }
                     }
                 }

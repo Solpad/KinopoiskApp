@@ -8,5 +8,5 @@ import dagger.Component
 @Component(modules = [AppModule::class])
 @AppScope
 interface AppComponent {
-    fun inject(activity: MainActivity)
+    fun inject(application: Application)
 }

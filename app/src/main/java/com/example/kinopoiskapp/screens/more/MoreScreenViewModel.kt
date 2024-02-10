@@ -6,15 +6,17 @@ import androidx.lifecycle.viewModelScope
 import com.example.kinopoiskapp.repository.MovieStatusListener
 import com.example.kinopoiskapp.repository.MoviesRepository
 import com.example.kinopoiskapp.screens.mapper.MovieUiMapper
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 class MoreScreenViewModel(
     savedStateHandle: SavedStateHandle,
-    moviesRepository: MoviesRepository,
+    private val moviesRepository: MoviesRepository,
     movieUiMapper: MovieUiMapper,
 ) : ViewModel() {
 
@@ -32,6 +34,9 @@ class MoreScreenViewModel(
     val needShowErrorScreenStateFlow: StateFlow<Boolean> =
         needShowErrorScreenMutableStateFlow
 
+    fun onAddToFavoriteButtonClick() = viewModelScope.launch(Dispatchers.IO) {
+        moviesRepository.addMovieToFavorites(id, movieStatusListener)
+    }
 
     private inner class MovieMoreStatusListenerImpl : MovieStatusListener {
 

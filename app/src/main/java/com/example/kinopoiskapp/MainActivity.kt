@@ -3,24 +3,15 @@ package com.example.kinopoiskapp
 import android.os.Build
 import android.os.Bundle
 import android.view.Window
-import android.view.WindowInsetsController
-import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.view.WindowCompat
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.kinopoiskapp.network.MovieApi
+import com.example.kinopoiskapp.di.main.MainComponent
 import com.example.kinopoiskapp.repository.MoviesRepositoryImpl
 import com.example.kinopoiskapp.screens.favorites.FavoritesScreenViewModel
 import com.example.kinopoiskapp.screens.mapper.MovieUiMapperImpl
@@ -31,9 +22,11 @@ import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
 
+    private lateinit var mainComponent: MainComponent
+
     @Inject
-    lateinit var moviesRepository:MoviesRepositoryImpl
-    var movieUiMapperImpl = MovieUiMapperImpl()
+    lateinit var moviesRepository: MoviesRepositoryImpl
+    private var movieUiMapperImpl = MovieUiMapperImpl()
 
     private val viewModelFactory = viewModelFactory {
         initializer {
@@ -61,7 +54,10 @@ class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        appComponent.inject(this)
+        (application as App).mainComponent.inject(this)
+
+//        mainComponent = DaggerMainComponent.create()
+//        mainComponent.inject(this)
         setContent {
             KinopoiskAppTheme {
                 val window: Window = this.window
@@ -71,11 +67,11 @@ class MainActivity : ComponentActivity() {
 //                )
                 window.statusBarColor = MaterialTheme.colorScheme.background.toArgb()
                 FilmsNavigationRoot(viewModelFactory = viewModelFactory)
-                }
             }
         }
+    }
 
-    internal companion object{
+    internal companion object {
         internal const val SCREEN_POPULAR = "populars"
         internal const val SCREEN_FAVORITES = "favorites"
         internal const val SCREEN_MORE_INFO = "more_info"

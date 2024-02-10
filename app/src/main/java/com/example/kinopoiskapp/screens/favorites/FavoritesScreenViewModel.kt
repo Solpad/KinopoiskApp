@@ -17,13 +17,14 @@ class FavoritesScreenViewModel(
 ) : ViewModel() {
 
     private val movieStatusListener = MovieFavoriteStatusListenerImpl()
-//    val favoritesFilmsStateFlow: StateFlow<List<FavoritesMovieUiModel>> =
-//        moviesRepository.getFavoritesMoviesStateFlow(movieStatusListener)
-//            .map { movies ->
-//                movieUiMapper
-//                    .mapMovieItemToPopularMovieUiModel(movies)
-//            }
-//            .stateIn(viewModelScope, SharingStarted.Lazily, mutableListOf())
+
+val favoritesFilmsStateFlow: StateFlow<List<FavoritesMovieUiModel>> =
+    moviesRepository.getFavoritesMoviesStateFlow(movieStatusListener)
+        .map { movies ->
+            movieUiMapper
+                .mapMovieItemToFavoritesMovieUiModel(movies)
+        }
+        .stateIn(viewModelScope, SharingStarted.Lazily, mutableListOf())
 
 
     private inner class MovieFavoriteStatusListenerImpl : MovieStatusListener {

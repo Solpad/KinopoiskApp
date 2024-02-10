@@ -18,6 +18,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -39,8 +41,8 @@ internal fun FavoritesScreen(
     viewModel: FavoritesScreenViewModel,
     navController: NavHostController,
 ) {
-//    val popularsFilms = viewModel.favoritesFilmsStateFlow
-    val favoritesFilms = mutableListOf<FavoritesMovieUiModel>()
+    val favoritesFilms by viewModel.favoritesFilmsStateFlow.collectAsState()
+//    val favoritesFilms = mutableListOf<FavoritesMovieUiModel>()
 
     val onFavoriteMovieClick = remember {
         { movieId: String ->
@@ -60,7 +62,7 @@ internal fun FavoritesScreen(
 
 @Composable
 private fun FavoritesScreenContent(
-    favoritesFilms: MutableList<FavoritesMovieUiModel>,
+    favoritesFilms: List<FavoritesMovieUiModel>,
     onFavoriteMovieClick: (String) -> Unit,
     topBar: @Composable () -> Unit,
     bottomBar: @Composable () -> Unit,

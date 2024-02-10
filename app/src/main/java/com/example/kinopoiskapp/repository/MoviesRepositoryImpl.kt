@@ -1,5 +1,8 @@
 package com.example.kinopoiskapp.repository
 
+import android.content.Context
+import android.util.Log
+import com.example.kinopoiskapp.database.MovieDao
 import com.example.kinopoiskapp.model.MovieItem
 import com.example.kinopoiskapp.network.MovieApi
 import kotlinx.coroutines.channels.awaitClose
@@ -10,6 +13,7 @@ import javax.inject.Inject
 class MoviesRepositoryImpl
 @Inject constructor(
     private val movieApi: MovieApi,
+    private val movieDao: MovieDao,
 ) : MoviesRepository {
 
 
@@ -32,7 +36,8 @@ class MoviesRepositoryImpl
 
     override fun getFavoritesMoviesStateFlow(movieStatusListener: MovieStatusListener): Flow<List<MovieItem>> {
         return callbackFlow {
-            getAllFavoritesMovies(movieStatusListener)?.let { send(it) }
+            //Сделать слушателя изменений
+            getAllFavoritesMovies(movieStatusListener).let { send(it) }
             awaitClose { }
         }
     }
@@ -65,9 +70,8 @@ class MoviesRepositoryImpl
 //        }
     }
 
-    override suspend fun getAllFavoritesMovies(movieStatusListener: MovieStatusListener): List<MovieItem>? {
-
-        return null
+    override suspend fun getAllFavoritesMovies(movieStatusListener: MovieStatusListener): List<MovieItem> {
+        return movieDao.getAll()
     }
 
     override suspend fun getMovieById(
@@ -97,5 +101,12 @@ class MoviesRepositoryImpl
 //            movieStatusListener.onError()
 //            return null
 //        }
+    }
+
+    override suspend fun addMovieToFavorites(id: String, movieStatusListener: MovieStatusListener) {
+        val movieItem = getMovieById(id, movieStatusListener)
+        if (movieItem != null) {
+            movieDao.addMovie(movieItem)
+        }
     }
 }

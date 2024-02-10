@@ -3,6 +3,7 @@ package com.example.kinopoiskapp.screens.mapper
 import android.util.Log
 import com.example.kinopoiskapp.R
 import com.example.kinopoiskapp.model.MovieItem
+import com.example.kinopoiskapp.screens.favorites.FavoritesMovieUiModel
 import com.example.kinopoiskapp.screens.more.MoreMovieUiModel
 import com.example.kinopoiskapp.screens.popular.PopularMovieUiModel
 
@@ -22,6 +23,18 @@ class MovieUiMapperImpl:MovieUiMapper {
             }
     return mappedPopularList
 }
+
+    override fun mapMovieItemToFavoritesMovieUiModel(movies: List<MovieItem>): List<FavoritesMovieUiModel> {
+        val mappedPopularList: List<FavoritesMovieUiModel> =
+            movies.map { movieItem ->
+                FavoritesMovieUiModel(
+                    id = movieItem.id.toInt(),
+                    posterSmall = movieItem.coverSmall,
+                    name = movieItem.name,
+                    genre =  movieItem.genres + " (" + movieItem.year + ")"
+                )
+            }
+        return mappedPopularList    }
 
     override fun mapMovieItemToMoreMovieUiModel(movie: MovieItem): MoreMovieUiModel {
         return MoreMovieUiModel(
