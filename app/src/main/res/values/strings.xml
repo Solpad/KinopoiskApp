@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">KinopoiskApp</string>
+    <string name="favorite_title">Избранное</string>
+    <string name="popular_title">Популярные</string>
+    <string name="countres">"Страны:"</string>
+    <string name="genres">"Жанры:"</string>
+</resources>
