@@ -10,11 +10,11 @@ interface MoviesRepository {
         movieStatusListener: MovieStatusListener
     ): Flow<MovieItem>
 
-    fun getPopularMoviesInfoStateFlow(movieStatusListener: MovieStatusListener): Flow<List<MovieItem>>
-
-//    val favoritesMoviesStateFlow: Flow<List<MovieItem>>
+    fun getPopularMoviesStateFlow(movieStatusListener: MovieStatusListener): Flow<List<MovieItem>>
+    fun getFavoritesMoviesStateFlow(movieStatusListener: MovieStatusListener): Flow<List<MovieItem>>
 
     suspend fun getAllMovies(movieStatusListener: MovieStatusListener): List<MovieItem>?
+    suspend fun getAllFavoritesMovies(movieStatusListener: MovieStatusListener): List<MovieItem>?
 
     suspend fun getMovieById(id: String, movieStatusListener: MovieStatusListener): MovieItem?
 

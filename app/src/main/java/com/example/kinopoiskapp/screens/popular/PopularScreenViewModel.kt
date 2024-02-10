@@ -25,7 +25,7 @@ class PopularScreenViewModel(
 
 
     val popularsMoviesStateFlow: StateFlow<List<PopularMovieUiModel>> =
-        moviesRepository.getPopularMoviesInfoStateFlow(movieStatusListener)
+        moviesRepository.getPopularMoviesStateFlow(movieStatusListener)
             .map { movies ->
                 movieUiMapper
                     .mapMovieItemToPopularMovieUiModel(movies)
@@ -33,17 +33,13 @@ class PopularScreenViewModel(
             .stateIn(viewModelScope, SharingStarted.Lazily, mutableListOf())
 
     private inner class MoviePopularStatusListenerImpl : MovieStatusListener {
-
         override fun onProgress(progress: Int) {
         }
-
         override fun onSuccess() {
             needShowErrorScreenMutableStateFlow.value = true
         }
-
         override fun onError() {
             needShowErrorScreenMutableStateFlow.value = true
         }
     }
-
 }

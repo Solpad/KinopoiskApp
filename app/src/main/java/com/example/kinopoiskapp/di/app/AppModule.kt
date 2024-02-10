@@ -4,6 +4,7 @@ import com.example.kinopoiskapp.util.NetworkProvider
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
+import com.example.kinopoiskapp.di.DatabaseModule
 import com.example.kinopoiskapp.di.NetworkModule
 import com.example.kinopoiskapp.repository.MoviesRepository
 import com.example.kinopoiskapp.repository.MoviesRepositoryImpl

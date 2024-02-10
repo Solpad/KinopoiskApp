@@ -33,23 +33,27 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var moviesRepository:MoviesRepositoryImpl
+    var movieUiMapperImpl = MovieUiMapperImpl()
 
     private val viewModelFactory = viewModelFactory {
         initializer {
             PopularScreenViewModel(
                 moviesRepository,
-                MovieUiMapperImpl()
-                )
+                movieUiMapperImpl
+            )
         }
         initializer {
-            FavoritesScreenViewModel()
+            FavoritesScreenViewModel(
+                moviesRepository,
+                movieUiMapperImpl
+            )
         }
         initializer {
             val savedStateHandle = createSavedStateHandle()
             MoreScreenViewModel(
                 savedStateHandle,
                 moviesRepository,
-                MovieUiMapperImpl()
+                movieUiMapperImpl
             )
         }
     }

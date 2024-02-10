@@ -39,7 +39,7 @@ class MoreScreenViewModel(
         }
 
         override fun onSuccess() {
-            needShowErrorScreenMutableStateFlow.value = true
+            needShowErrorScreenMutableStateFlow.value = false
         }
 
         override fun onError() {

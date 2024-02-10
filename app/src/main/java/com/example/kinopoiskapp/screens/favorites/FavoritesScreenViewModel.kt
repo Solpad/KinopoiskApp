@@ -1,14 +1,38 @@
 package com.example.kinopoiskapp.screens.favorites
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.kinopoiskapp.repository.MovieStatusListener
+import com.example.kinopoiskapp.repository.MoviesRepository
+import com.example.kinopoiskapp.screens.mapper.MovieUiMapper
+import com.example.kinopoiskapp.screens.popular.PopularMovieUiModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 
-class FavoritesScreenViewModel : ViewModel() {
+class FavoritesScreenViewModel(
+    moviesRepository: MoviesRepository,
+    private val movieUiMapper: MovieUiMapper,
+) : ViewModel() {
 
-    val favoritesFilmsStateFlow: MutableList<FavoritesMovieUiModel> =
-        mutableListOf(
-            FavoritesMovieUiModel(1, "Изгой-один", "Фантастика(2016)"),
-            FavoritesMovieUiModel(2, "Щелкунчик", "Фэнтези(2018)"),
-            FavoritesMovieUiModel(3, "Черный Адам", "Боевик(2022)"),
-            FavoritesMovieUiModel(4, "Елки 9", "Комедия(202)"),
-        )
+    private val movieStatusListener = MovieFavoriteStatusListenerImpl()
+//    val favoritesFilmsStateFlow: StateFlow<List<FavoritesMovieUiModel>> =
+//        moviesRepository.getFavoritesMoviesStateFlow(movieStatusListener)
+//            .map { movies ->
+//                movieUiMapper
+//                    .mapMovieItemToPopularMovieUiModel(movies)
+//            }
+//            .stateIn(viewModelScope, SharingStarted.Lazily, mutableListOf())
+
+
+    private inner class MovieFavoriteStatusListenerImpl : MovieStatusListener {
+        override fun onProgress(progress: Int) {
+        }
+        override fun onSuccess() {
+        }
+        override fun onError() {
+        }
+    }
+
 }
