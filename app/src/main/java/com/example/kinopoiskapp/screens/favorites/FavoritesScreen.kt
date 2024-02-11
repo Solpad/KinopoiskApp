@@ -28,12 +28,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.kinopoiskapp.MainActivity
+import com.example.kinopoiskapp.R
 import com.example.kinopoiskapp.screens.baseui.FilmsTopAppBar
 import com.example.kinopoiskapp.screens.baseui.MoviesBottomAppBar
 
@@ -55,7 +57,7 @@ internal fun FavoritesScreen(
     FavoritesScreenContent(
         favoritesFilms = favoritesFilms,
         onFavoriteMovieClick = onFavoriteMovieClick,
-        topBar = { FilmsTopAppBar("Избранное") },
+        topBar = { FilmsTopAppBar(stringResource(id = R.string.favorite_title)) },
         bottomBar = { MoviesBottomAppBar(navController = navController) },
         onFavoriteMovieLongPressed = viewModel::onFavoriteMovieLongPressed
     )
@@ -126,7 +128,7 @@ private fun FavoriteFilmCard(
     ) {
         Row(modifier = Modifier.padding(10.dp)) {
             AsyncImage(
-                model = film.posterSmall, contentDescription = "content",
+                model = film.posterSmall, contentDescription = "",
                 modifier = Modifier
                     .clip(RoundedCornerShape(10.dp))
                     .size(100.dp)
@@ -145,7 +147,6 @@ private fun FavoriteFilmCard(
                     text = film.genre,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onBackground,
-
                     )
             }
         }

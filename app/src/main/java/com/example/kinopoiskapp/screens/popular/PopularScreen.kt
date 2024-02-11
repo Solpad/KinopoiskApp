@@ -121,7 +121,7 @@ private fun PopularScreen(
                             modifier = Modifier.padding(12.dp)
                         )
                         Text(
-                            text = "Произошла ошибка при загрузке данных, проверьте подключение к сети",
+                            text = stringResource(id = R.string.error_title),
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
@@ -136,7 +136,7 @@ private fun PopularScreen(
                                 contentColor = Color.White
                             ),
                         ) {
-                            Text(text = "Повторить")
+                            Text(text = stringResource(id = R.string.repeat_title))
                         }
                     }
                 }

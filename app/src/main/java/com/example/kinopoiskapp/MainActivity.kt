@@ -2,16 +2,12 @@ package com.example.kinopoiskapp
 
 import android.os.Build
 import android.os.Bundle
-import android.view.Window
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.kinopoiskapp.di.main.MainComponent
 import com.example.kinopoiskapp.repository.MoviesRepositoryImpl
 import com.example.kinopoiskapp.screens.favorites.FavoritesScreenViewModel
 import com.example.kinopoiskapp.screens.mapper.MovieUiMapperImpl
@@ -21,8 +17,6 @@ import com.example.kinopoiskapp.ui.theme.KinopoiskAppTheme
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
-
-    private lateinit var mainComponent: MainComponent
 
     @Inject
     lateinit var moviesRepository: MoviesRepositoryImpl
@@ -55,13 +49,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (application as App).mainComponent.inject(this)
-
-//        mainComponent = DaggerMainComponent.create()
-//        mainComponent.inject(this)
         setContent {
             KinopoiskAppTheme {
-                val window: Window = this.window
-                window.statusBarColor = MaterialTheme.colorScheme.background.toArgb()
                 FilmsNavigationRoot(viewModelFactory = viewModelFactory)
             }
         }

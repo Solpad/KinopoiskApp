@@ -33,8 +33,6 @@ class FavoritesScreenViewModel(
     }
 
     private inner class MovieFavoriteStatusListenerImpl : MovieStatusListener {
-        override fun onProgress(progress: Int) {
-        }
 
         override fun onSuccess() {
         }

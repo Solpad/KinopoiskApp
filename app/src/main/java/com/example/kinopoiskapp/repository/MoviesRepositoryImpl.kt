@@ -19,7 +19,6 @@ class MoviesRepositoryImpl
     private val movieManager: MovieManagerImpl,
     private val networkProvider: NetworkProvider,
 ) : MoviesRepository {
-
     override fun getMoreMoviesInfoStateFlow(
         id: String,
         movieStatusListener: MovieStatusListener
@@ -68,7 +67,6 @@ class MoviesRepositoryImpl
             awaitClose { movieManager.removeMoviesChangesListener(moviesChangesListener) }
         }
     }
-
     private suspend fun getAllMovies(movieStatusListener: MovieStatusListener) {
         if (networkProvider.checkInternet()) {
             val response = movieApi.getAllMovies()
@@ -97,7 +95,6 @@ class MoviesRepositoryImpl
             movieStatusListener.onError()
         }
     }
-
     private suspend fun getMovieById(
         id: String,
         movieStatusListener: MovieStatusListener
@@ -127,7 +124,6 @@ class MoviesRepositoryImpl
             movieStatusListener.onError()
         }
     }
-
     override suspend fun addMovieToFavorites(id: String, movieStatusListener: MovieStatusListener) {
         getMovieById(id, movieStatusListener)
         try {
@@ -150,12 +146,10 @@ class MoviesRepositoryImpl
         movieManager.setFavoriteMovie(movieDao.getAll())
         movieManager.notifyMovieChangesListeners()
     }
-
     override suspend fun repeatDownloadMovie(movieStatusListener: MovieStatusListener) {
         getAllMovies(movieStatusListener)
         movieManager.notifyMovieChangesListeners()
     }
-
     override suspend fun repeatDownloadMovieById(
         id: String,
         movieStatusListener: MovieStatusListener

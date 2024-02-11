@@ -40,9 +40,6 @@ class MoreScreenViewModel(
 
     private inner class MovieMoreStatusListenerImpl : MovieStatusListener {
 
-        override fun onProgress(progress: Int) {
-        }
-
         override fun onSuccess() {
             needShowErrorScreenMutableStateFlow.value = false
         }

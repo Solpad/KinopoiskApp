@@ -6,7 +6,6 @@ import com.example.kinopoiskapp.screens.more.MoreMovieUiModel
 import com.example.kinopoiskapp.screens.popular.PopularMovieUiModel
 
 class MovieUiMapperImpl : MovieUiMapper {
-
     override fun mapMovieItemToPopularMovieUiModel(movies: List<MovieItem>)
             : List<PopularMovieUiModel> {
         val mappedPopularList: List<PopularMovieUiModel> =
@@ -16,7 +15,7 @@ class MovieUiMapperImpl : MovieUiMapper {
                     posterSmall = movieItem.coverSmall,
                     name = movieItem.name,
                     genre = movieItem.genres + " (" + movieItem.year + ")",
-                    inFavorite = true
+                    inFavorite = false
                 )
             }
         return mappedPopularList

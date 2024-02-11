@@ -1,7 +1,6 @@
 package com.example.kinopoiskapp.database
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -11,8 +10,7 @@ import com.example.kinopoiskapp.model.MovieItem
     entities = [MovieItem::class],
     version = 1
 )
-abstract class MovieDatabase: RoomDatabase() {
-
+abstract class MovieDatabase : RoomDatabase() {
     abstract fun getDao(): MovieDao
 
     companion object {
@@ -25,7 +23,6 @@ abstract class MovieDatabase: RoomDatabase() {
         }
 
         private fun createDatabase(context: Context): MovieDatabase {
-            Log.e("db context","${context.applicationContext}")
             return Room.databaseBuilder(
                 context.applicationContext,
                 MovieDatabase::class.java,

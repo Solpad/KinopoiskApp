@@ -4,4 +4,6 @@
     <string name="popular_title">Популярные</string>
     <string name="countres">"Страны:"</string>
     <string name="genres">"Жанры:"</string>
+    <string name="repeat_title">"Повторить"</string>
+    <string name="error_title">"Произошла ошибка при загрузке данных, проверьте подключение к сети"</string>
 </resources>
