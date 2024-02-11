@@ -26,7 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.semantics.Role
@@ -74,7 +73,7 @@ private fun FavoritesScreenContent(
         topBar = topBar,
         bottomBar = bottomBar,
         modifier = Modifier.fillMaxSize(),
-        containerColor = Color.Unspecified,
+        containerColor = MaterialTheme.colorScheme.background,
     ) { scaffoldPaddings ->
         Column(
             modifier = Modifier
@@ -114,13 +113,15 @@ private fun FavoriteFilmCard(
             .background(MaterialTheme.colorScheme.background)
             .clickable(
                 role = Role.Button,
-                onClick = { onFavoriteMovieClick(film.id.toString()) },
+                onClick = { onFavoriteMovieClick(film.id.toString()) }
             )
             .pointerInput(Unit) {
                 detectTapGestures(
+                    onTap = { onFavoriteMovieClick(film.id.toString()) },
                     onLongPress = { onFavoriteMovieLongPressed(film.id.toString()) },
                 )
             }
+
 
     ) {
         Row(modifier = Modifier.padding(10.dp)) {
@@ -135,14 +136,17 @@ private fun FavoriteFilmCard(
                     modifier = Modifier.padding(8.dp),
                     text = film.name,
                     fontWeight = FontWeight.Bold,
-                )
+                    color = MaterialTheme.colorScheme.onBackground,
+                    )
                 Text(
                     modifier = Modifier
                         .padding(8.dp)
                         .alpha(0.5f),
                     text = film.genre,
                     fontWeight = FontWeight.Bold,
-                )
+                    color = MaterialTheme.colorScheme.onBackground,
+
+                    )
             }
         }
     }

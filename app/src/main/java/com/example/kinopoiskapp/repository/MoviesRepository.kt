@@ -12,9 +12,8 @@ interface MoviesRepository {
 
     fun getPopularMoviesStateFlow(movieStatusListener: MovieStatusListener): Flow<List<MovieItem>>
     fun getFavoritesMoviesStateFlow(movieStatusListener: MovieStatusListener): Flow<List<MovieItem>>
-    suspend fun getAllMovies(movieStatusListener: MovieStatusListener): List<MovieItem>?
-    suspend fun getAllFavoritesMovies(movieStatusListener: MovieStatusListener): List<MovieItem>?
-    suspend fun getMovieById(id: String, movieStatusListener: MovieStatusListener): MovieItem?
+    suspend fun repeatDownloadMovie(movieStatusListener: MovieStatusListener)
+    suspend fun repeatDownloadMovieById(id:String, movieStatusListener: MovieStatusListener)
     suspend fun addMovieToFavorites(id: String, movieStatusListener: MovieStatusListener)
     suspend fun deleteMovieToFavorites(id: String, movieStatusListener: MovieStatusListener)
 

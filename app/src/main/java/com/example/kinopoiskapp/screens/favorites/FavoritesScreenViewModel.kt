@@ -28,9 +28,10 @@ class FavoritesScreenViewModel(
             .stateIn(viewModelScope, SharingStarted.Lazily, mutableListOf())
 
 
-    fun onFavoriteMovieLongPressed(id:String) =  viewModelScope.launch(Dispatchers.IO) {
+    fun onFavoriteMovieLongPressed(id: String) = viewModelScope.launch(Dispatchers.IO) {
         moviesRepository.deleteMovieToFavorites(id, movieStatusListener)
     }
+
     private inner class MovieFavoriteStatusListenerImpl : MovieStatusListener {
         override fun onProgress(progress: Int) {
         }
@@ -39,6 +40,10 @@ class FavoritesScreenViewModel(
         }
 
         override fun onError() {
+        }
+
+        override fun onRepeat(): Boolean {
+            return false
         }
     }
 

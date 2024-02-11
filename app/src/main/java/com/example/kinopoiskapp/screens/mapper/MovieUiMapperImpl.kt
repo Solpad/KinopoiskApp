@@ -15,7 +15,8 @@ class MovieUiMapperImpl : MovieUiMapper {
                     id = movieItem.id,
                     posterSmall = movieItem.coverSmall,
                     name = movieItem.name,
-                    genre = movieItem.genres + " (" + movieItem.year + ")"
+                    genre = movieItem.genres + " (" + movieItem.year + ")",
+                    inFavorite = true
                 )
             }
         return mappedPopularList

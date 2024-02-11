@@ -1,5 +1,6 @@
 package com.example.kinopoiskapp.screens.popular
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kinopoiskapp.repository.MovieStatusListener
@@ -25,8 +26,13 @@ class PopularScreenViewModel(
     val needShowErrorScreenStateFlow: StateFlow<Boolean> =
         needShowErrorScreenMutableStateFlow
 
+    private val needRepeatDownloadMutableStateFlow: MutableStateFlow<Boolean> =
+        MutableStateFlow(false)
+    val needRepeatDownloadStateFlow: StateFlow<Boolean> =
+        needRepeatDownloadMutableStateFlow
 
-    val popularsMoviesStateFlow: StateFlow<List<PopularMovieUiModel>> =
+
+    var popularsMoviesStateFlow: StateFlow<List<PopularMovieUiModel>> =
         moviesRepository.getPopularMoviesStateFlow(movieStatusListener)
             .map { movies ->
                 movieUiMapper
@@ -37,17 +43,25 @@ class PopularScreenViewModel(
     fun onAddToFavoriteClick(id: String) = viewModelScope.launch(Dispatchers.IO) {
         moviesRepository.addMovieToFavorites(id, movieStatusListener)
     }
+    fun onRepeatErrorButton() = viewModelScope.launch(Dispatchers.IO) {
+        moviesRepository.repeatDownloadMovie(movieStatusListener)
+    }
 
     private inner class MoviePopularStatusListenerImpl : MovieStatusListener {
         override fun onProgress(progress: Int) {
         }
 
         override fun onSuccess() {
-            needShowErrorScreenMutableStateFlow.value = true
+            needShowErrorScreenMutableStateFlow.value = false
         }
 
         override fun onError() {
             needShowErrorScreenMutableStateFlow.value = true
+        }
+
+        override fun onRepeat():Boolean {
+            Log.e("onRepeatErrorButton","true")
+            return needRepeatDownloadStateFlow.value
         }
     }
 }

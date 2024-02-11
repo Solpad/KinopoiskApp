@@ -1,15 +1,12 @@
 package com.example.kinopoiskapp.util
+
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import retrofit2.Response
-import java.io.IOException
-import java.net.UnknownHostException
 import javax.inject.Inject
 
 
-class NetworkProvider (private val connectivityManager: ConnectivityManager){
-
-    fun checkInternet (): Boolean {
+class NetworkProvider @Inject constructor(private val connectivityManager: ConnectivityManager) {
+    fun checkInternet(): Boolean {
         val activeNetwork = connectivityManager.activeNetwork ?: return false
         val capabilities =
             connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false

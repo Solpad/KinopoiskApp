@@ -5,4 +5,5 @@ class PopularMovieUiModel(
     val posterSmall: String,
     val name: String,
     val genre: String,
+    val inFavorite: Boolean,
 ) {}
