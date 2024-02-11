@@ -16,5 +16,6 @@ interface MoviesRepository {
     suspend fun getAllFavoritesMovies(movieStatusListener: MovieStatusListener): List<MovieItem>?
     suspend fun getMovieById(id: String, movieStatusListener: MovieStatusListener): MovieItem?
     suspend fun addMovieToFavorites(id: String, movieStatusListener: MovieStatusListener)
+    suspend fun deleteMovieToFavorites(id: String, movieStatusListener: MovieStatusListener)
 
 }

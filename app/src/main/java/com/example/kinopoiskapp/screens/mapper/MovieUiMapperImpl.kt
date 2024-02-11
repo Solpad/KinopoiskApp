@@ -1,28 +1,25 @@
 package com.example.kinopoiskapp.screens.mapper
 
-import android.util.Log
-import com.example.kinopoiskapp.R
 import com.example.kinopoiskapp.model.MovieItem
 import com.example.kinopoiskapp.screens.favorites.FavoritesMovieUiModel
 import com.example.kinopoiskapp.screens.more.MoreMovieUiModel
 import com.example.kinopoiskapp.screens.popular.PopularMovieUiModel
 
-class MovieUiMapperImpl:MovieUiMapper {
+class MovieUiMapperImpl : MovieUiMapper {
 
     override fun mapMovieItemToPopularMovieUiModel(movies: List<MovieItem>)
-    : List<PopularMovieUiModel>
-    {
-    val mappedPopularList: List<PopularMovieUiModel> =
-        movies.map { movieItem ->
+            : List<PopularMovieUiModel> {
+        val mappedPopularList: List<PopularMovieUiModel> =
+            movies.map { movieItem ->
                 PopularMovieUiModel(
-                    id = movieItem.id.toInt(),
+                    id = movieItem.id,
                     posterSmall = movieItem.coverSmall,
                     name = movieItem.name,
-                    genre =  movieItem.genres + " (" + movieItem.year + ")"
+                    genre = movieItem.genres + " (" + movieItem.year + ")"
                 )
             }
-    return mappedPopularList
-}
+        return mappedPopularList
+    }
 
     override fun mapMovieItemToFavoritesMovieUiModel(movies: List<MovieItem>): List<FavoritesMovieUiModel> {
         val mappedPopularList: List<FavoritesMovieUiModel> =
@@ -31,10 +28,11 @@ class MovieUiMapperImpl:MovieUiMapper {
                     id = movieItem.id.toInt(),
                     posterSmall = movieItem.coverSmall,
                     name = movieItem.name,
-                    genre =  movieItem.genres + " (" + movieItem.year + ")"
+                    genre = movieItem.genres + " (" + movieItem.year + ")"
                 )
             }
-        return mappedPopularList    }
+        return mappedPopularList
+    }
 
     override fun mapMovieItemToMoreMovieUiModel(movie: MovieItem): MoreMovieUiModel {
         return MoreMovieUiModel(

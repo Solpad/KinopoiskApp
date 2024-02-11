@@ -2,6 +2,7 @@ package com.example.kinopoiskapp.screens.popular
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,6 +27,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -58,6 +60,7 @@ internal fun PopularScreen(
         topBar = { FilmsTopAppBar(stringResource(id = R.string.popular_title)) },
         bottomBar = { MoviesBottomAppBar(navController = navController) },
         onPopularMovieClick = onPopularMovieClicked,
+        onAddToFavoriteClick = viewModel::onAddToFavoriteClick,
     )
 }
 
@@ -66,7 +69,8 @@ private fun PopularScreen(
     popularFilms: List<PopularMovieUiModel>,
     topBar: @Composable () -> Unit,
     bottomBar: @Composable () -> Unit,
-    onPopularMovieClick: (String) -> Unit
+    onPopularMovieClick: (String) -> Unit,
+    onAddToFavoriteClick: (String) -> Unit,
 ) {
     Scaffold(
         topBar = topBar,
@@ -91,7 +95,8 @@ private fun PopularScreen(
                 ) { _, film ->
                     PopularFilmCard(
                         film = film,
-                        onPopularMovieClick = onPopularMovieClick
+                        onPopularMovieClick = onPopularMovieClick,
+                        onAddToFavoriteClick = onAddToFavoriteClick,
                     )
                 }
             }
@@ -103,6 +108,7 @@ private fun PopularScreen(
 private fun PopularFilmCard(
     film: PopularMovieUiModel,
     onPopularMovieClick: (String) -> Unit,
+    onAddToFavoriteClick: (String) -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -113,12 +119,19 @@ private fun PopularFilmCard(
             .background(MaterialTheme.colorScheme.background)
             .clickable(
                 role = Role.Button,
-                onClick = { onPopularMovieClick(film.id.toString()) },
+                onClick = { onPopularMovieClick(film.id) }
             )
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onTap = { onPopularMovieClick(film.id) },
+                    onLongPress = { onAddToFavoriteClick(film.id) },
+                )
+            }
 
     ) {
         Row(modifier = Modifier.padding(10.dp)) {
-            AsyncImage(model = film.posterSmall, contentDescription = "content",
+            AsyncImage(
+                model = film.posterSmall, contentDescription = "content",
                 modifier = Modifier
                     .clip(RoundedCornerShape(10.dp))
                     .size(100.dp)
@@ -128,12 +141,14 @@ private fun PopularFilmCard(
                     modifier = Modifier.padding(8.dp),
                     text = film.name,
                     fontWeight = FontWeight.Bold,
-                    )
+                )
                 Text(
-                    modifier = Modifier.padding(8.dp).alpha(0.5f),
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .alpha(0.5f),
                     text = film.genre,
                     fontWeight = FontWeight.Bold,
-                    )
+                )
             }
         }
 

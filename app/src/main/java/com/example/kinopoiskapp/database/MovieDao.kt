@@ -11,7 +11,7 @@ import com.example.kinopoiskapp.model.MovieItem
 interface MovieDao {
 
     @Query("SELECT * FROM movieitem")
-    suspend fun getAll():List<MovieItem>
+    suspend fun getAll(): List<MovieItem>
 
     @Insert
     suspend fun addMovie(movie: MovieItem)
