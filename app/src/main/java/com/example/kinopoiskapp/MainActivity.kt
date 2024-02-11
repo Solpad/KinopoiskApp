@@ -61,14 +61,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             KinopoiskAppTheme {
                 val window: Window = this.window
-//                window.setFlags(
-//                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-//                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-//                )
                 window.statusBarColor = MaterialTheme.colorScheme.background.toArgb()
                 FilmsNavigationRoot(viewModelFactory = viewModelFactory)
             }
         }
+
     }
 
     internal companion object {
